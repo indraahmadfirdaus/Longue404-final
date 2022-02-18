@@ -72,7 +72,7 @@ const Register = () => {
         bgColor="white"
         shadow={"md"}
         padding="4"
-        width={"30vw"}
+        width={{ base: "70vw", md: "50vw", xl: "35vw" }}
       >
         <Flex alignItems={"center"} justifyContent="center">
           <Image src={camp404Logo} boxSize="12" alt="" />

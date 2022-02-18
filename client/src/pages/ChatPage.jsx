@@ -15,6 +15,7 @@ import {
   InputRightElement,
   useDisclosure,
   useToast,
+  useMediaQuery,
 } from "@chakra-ui/react";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -40,6 +41,7 @@ const ChatPage = () => {
   const [chats, setChats] = useState([]);
   let chatRef = useRef(null);
   const toast = useToast();
+  const [isMobile] = useMediaQuery("(max-width: 768px)");
 
   useEffect(() => {
     dispatch(usersActions.getUsers());
@@ -157,10 +159,38 @@ const ChatPage = () => {
           bgColor="white"
           shadow={"md"}
           padding="4"
-          width={"50vw"}
+          width={{ base: "70vw", md: "60vw", xl: "50vw" }}
           height={"75vh"}
           position="relative"
         >
+          <Avatar
+            hidden={!isMobile}
+            marginLeft={3}
+            name={loggedUser.username}
+            bg="cyan.500"
+            color="white"
+            size={"sm"}
+            onClick={onOpenEditUser}
+            src={loggedUser.avatar}
+            position={"absolute"}
+            left="4"
+            top="4"
+          ></Avatar>
+          <Button
+            hidden={!isMobile}
+            onClick={onOpenBrowseUsers}
+            bg="gray.50"
+            size="xs"
+            marginTop={4}
+            position={"absolute"}
+            rounded={"full"}
+            fontSize="10px"
+            left="2"
+            top="10"
+          >
+            <Icon as={FiUser} marginRight="2" />
+            Cari User
+          </Button>
           <Button
             position={"absolute"}
             variant="ghost"
@@ -171,11 +201,12 @@ const ChatPage = () => {
             rounded="full"
             onClick={logout}
           >
-            Keluar
+            <Text hidden={isMobile}>Keluar</Text>
             <Icon marginLeft="2" as={IoExitOutline} />
           </Button>
           <Grid templateColumns="repeat(4, 1fr)" height={"100%"}>
             <GridItem
+              hidden={isMobile}
               rounded="lg"
               display={"flex"}
               alignItems="center"
@@ -214,7 +245,7 @@ const ChatPage = () => {
                 Cari User
               </Button>
             </GridItem>
-            <GridItem colSpan={3}>
+            <GridItem colSpan={isMobile ? 4 : 3}>
               <Flex
                 alignItems={"center"}
                 justifyContent="center"
