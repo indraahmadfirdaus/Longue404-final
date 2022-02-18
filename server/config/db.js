@@ -1,11 +1,13 @@
-const mongoose = require('mongoose')
+const mongoose = require("mongoose");
 
 const connectDb = async () => {
-    try {
-        await mongoose.connect('mongodb://localhost:27017/longue_404')
-    } catch (error) {
-        console.log('error connect db')
-    }
-}
+  try {
+    await mongoose.connect(
+      "mongodb+srv://admin:admin@longue404-cluster.spzyi.mongodb.net/Longue404"
+    );
+  } catch (error) {
+    console.log("error connect db");
+  }
+};
 
-module.exports = connectDb
+module.exports = connectDb;
